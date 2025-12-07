@@ -454,14 +454,12 @@ export async function POST(request) {
         // -----------------------------------------------------------------------
         // STEP 4: INITIALIZE GEMINI MODEL WITH FALLBACK
         // -----------------------------------------------------------------------
-        // Try models in order of preference (December 2025 - free tier models)
+        // Try models in order of preference (Stable models first)
         const MODELS_TO_TRY = [
-            'gemini-2.5-flash',          // Stable Gemini 2.5 Flash (recommended)
-            'gemini-2.5-flash-lite',     // Lighter/faster version
-            'gemini-2.5-pro',            // Gemini 2.5 Pro (more capable)
-            'gemini-3-pro',              // Latest Gemini 3 Pro
-            'models/gemini-2.0-flash',   // Try with models/ prefix
-            'models/gemini-1.5-flash',   // Try with models/ prefix
+            'gemini-1.5-flash',          // Proven stable, fast, free tier friendly
+            'gemini-1.5-pro',            // Higher intelligence fallback
+            'gemini-2.0-flash-exp',      // Experimental (if available)
+            'gemini-pro',                // Legacy stable
         ];
 
         let model = null;
