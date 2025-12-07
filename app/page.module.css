@@ -879,54 +879,76 @@
 @media (max-width: 479px) {
   .main {
     padding: var(--space-sm);
-    align-items: flex-start;
-    padding-top: var(--space-md);
+    /* Use safe area to avoid notch, but keep some padding */
+    padding-top: max(var(--space-md), env(safe-area-inset-top));
+    align-items: center;
+    /* Center correctly unless too tall */
+    justify-content: center;
+  }
+
+  /* Force start alignment if content is taller than screen */
+  @media (max-height: 800px) {
+    .main {
+      align-items: flex-start;
+    }
   }
 
   .container {
+    gap: var(--space-sm);
+    /* Reduce gap between header and chat */
+    width: 100%;
+  }
+
+  /* COMPACT HEADER transformation */
+  .header {
+    flex-direction: row;
+    /* Side by side */
+    align-items: center;
+    text-align: left;
+    padding: var(--space-md);
     gap: var(--space-md);
   }
 
-  .header {
-    padding: var(--space-md);
-    gap: var(--space-sm);
+  .avatarWrapper {
+    width: 50px;
+    /* Smaller avatar */
+    height: 50px;
+    flex-shrink: 0;
   }
 
-  .avatarWrapper {
-    width: 70px;
-    height: 70px;
+  .profileInfo {
+    flex: 1;
+    /* Take remaining width */
+    align-items: flex-start;
   }
 
   .name {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    /* Smaller name */
+    line-height: 1.2;
   }
 
   .title {
-    font-size: 0.9rem;
-  }
-
-  .tagline {
     font-size: 0.8rem;
+    line-height: 1.2;
   }
 
-  .socialLinks {
-    gap: var(--space-xs);
+  /* Hide tagline/socials on super small phones to save space if needed */
+  .tagline {
+    display: none;
   }
 
-  .socialLink {
-    width: 36px;
-    height: 36px;
+  .socialActions {
+    display: none;
+    /* Hide social buttons in header on mobile to save space - they are usually in footer or menu */
   }
 
-  .socialLink svg {
-    width: 16px;
-    height: 16px;
-  }
-
+  /* Expand Chat Area */
   .messagesArea {
-    max-height: 300px;
+    max-height: 60vh;
+    /* Use percentage of screen height */
+    min-height: 300px;
     padding: var(--space-md);
-    gap: var(--space-sm);
   }
 
   .messageContent {
@@ -1116,6 +1138,7 @@
     border: 1px solid #ccc;
   }
 }
+
 /* Contact Section */
 .socialActions {
   display: flex;
@@ -1132,7 +1155,8 @@
   justify-content: center;
   gap: 8px;
   padding: 10px 24px;
-  background: rgba(255, 255, 255, 0.05); /* Subtle glass */
+  background: rgba(255, 255, 255, 0.05);
+  /* Subtle glass */
   border: 1px solid var(--border-color);
   border-radius: var(--radius-full);
   color: var(--text-primary);
