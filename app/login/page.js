@@ -102,9 +102,6 @@ export default function LoginPage() {
                     </div>
                 </div>
 
-                <p className={styles.hint}>
-                    💡 Set <code>DASHBOARD_PASSWORD</code> in your environment variables
-                </p>
                 <div style={{ marginTop: '20px', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', textAlign: 'center' }}>
                     BUILT BY @DicksonOtieno using ANTIGRAVITY
                 </div>
