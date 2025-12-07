@@ -85,15 +85,17 @@ Go to your project → **Settings** → **Environment Variables** and add:
 
 ⚠️ **IMPORTANT**: Without these, the dashboard login will be disabled for security.
 
-### Step 4: Enable Live Editing (Required for Dashboard)
+### Step 4. Enable Live Editing (Required for Dashboard)
 
 By default, Vercel is **read-only**. To save profile changes on the live site, you need a database:
 
 1. In your Vercel project, click the **Storage** tab.
 2. Click **"Create New"** or browse **Marketplace Database Providers**.
-3. Select **"Upstash"** (Serverless Redis - it's free!).
-4. Click **"Add Integration"** → Select your project → **Continue** → **Connect**.
-5. Vercel will automatically add `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to your project.
+3. Select **"Upstash for Redis"** from the list.
+   *   *(Do NOT select Vector, QStash, or Search - just "Upstash for Redis")*
+4. Click **"Add Integration"** (Free Tier is default).
+5. Select your project → **Continue** → **Connect**.
+6. Vercel will automatically add `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to your project.
 
 ### Step 5: Redeploy
 1. Go to **Deployments** tab.
