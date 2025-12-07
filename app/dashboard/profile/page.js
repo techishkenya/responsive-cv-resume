@@ -69,6 +69,9 @@ export default function ProfilePage() {
 
             if (response.ok) {
                 setMessage({ type: 'success', text: 'Profile saved successfully! 🎉' });
+            } else if (response.status === 403) {
+                const data = await response.json();
+                setMessage({ type: 'error', text: data.error });
             } else {
                 throw new Error('Failed to save');
             }

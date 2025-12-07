@@ -49,6 +49,9 @@ export async function PUT(request) {
         await writeBotConfig(newConfig);
         return NextResponse.json({ success: true });
     } catch (error) {
+        if (error.code === 'READ_ONLY') {
+            return NextResponse.json({ error: error.message }, { status: 403 });
+        }
         console.error('Error writing config:', error);
         return NextResponse.json({ error: 'Failed to save config' }, { status: 500 });
     }
@@ -68,6 +71,9 @@ export async function PATCH(request) {
         await writeBotConfig(updatedConfig);
         return NextResponse.json({ success: true });
     } catch (error) {
+        if (error.code === 'READ_ONLY') {
+            return NextResponse.json({ error: error.message }, { status: 403 });
+        }
         console.error('Error updating config:', error);
         return NextResponse.json({ error: 'Failed to update config' }, { status: 500 });
     }

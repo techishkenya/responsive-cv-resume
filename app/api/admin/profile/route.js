@@ -34,6 +34,9 @@ export async function PUT(request) {
         await writeProfile(newProfile);
         return NextResponse.json({ success: true });
     } catch (error) {
+        if (error.code === 'READ_ONLY') {
+            return NextResponse.json({ error: error.message }, { status: 403 });
+        }
         console.error('Error writing profile:', error);
         return NextResponse.json({ error: 'Failed to save profile' }, { status: 500 });
     }
@@ -57,6 +60,9 @@ export async function PATCH(request) {
         console.log('[PATCH] Profile updated successfully');
         return NextResponse.json({ success: true });
     } catch (error) {
+        if (error.code === 'READ_ONLY') {
+            return NextResponse.json({ error: error.message }, { status: 403 });
+        }
         console.error('[PATCH] Error updating profile:', error);
         return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
     }

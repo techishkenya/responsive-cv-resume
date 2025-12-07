@@ -57,6 +57,9 @@ export default function ExperiencePage() {
                 setExperiences(newExperiences);
                 setMessage({ type: 'success', text: 'Saved successfully! 🎉' });
                 setTimeout(() => setMessage({ type: '', text: '' }), 3000);
+            } else if (response.status === 403) {
+                const data = await response.json();
+                setMessage({ type: 'error', text: data.error });
             } else {
                 throw new Error('Failed to save');
             }

@@ -85,6 +85,9 @@ export default function IntegrationsPage() {
 
             if (response.ok) {
                 setMessage({ type: 'success', text: 'Integrations saved! The chatbot can now talk about these. 🎉' });
+            } else if (response.status === 403) {
+                const data = await response.json();
+                setMessage({ type: 'error', text: data.error });
             } else {
                 throw new Error('Failed to save');
             }
