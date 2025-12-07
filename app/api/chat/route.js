@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
-import { getProfile, getBotConfig } from '@/lib/utils';
+import { readProfile, readBotConfig, validateChatMessage } from '@/lib/utils';
 
 /* ===========================================
    HELPER FUNCTIONS (Local Rules)
@@ -111,7 +111,12 @@ function formatHistory(history) {
 export async function POST(req) {
     try {
         const body = await req.json();
-        const message = body.message || '';
+        const message = validateChatMessage(body.message); // Use utility validation
+
+        if (!message) {
+            return NextResponse.json({ response: "Please type a valid message." });
+        }
+
         const cleanKey = (process.env.GEMINI_API_KEY || '').trim();
 
         if (!cleanKey) {
@@ -121,9 +126,9 @@ export async function POST(req) {
             );
         }
 
-        // 1. Data Loading
-        const profile = await getProfile();
-        const botConfig = await getBotConfig();
+        // 1. Data Loading (Corrected Function Names)
+        const profile = await readProfile();
+        const botConfig = await readBotConfig();
 
         // 2. HYBRID RULE ENGINE (Local Check)
         // -----------------------------------
