@@ -885,23 +885,20 @@
    =========================================== */
 
 /* ===========================================
-   PREMIUM MOBILE LAYOUT (App-Like Feel)
-   =========================================== */
-
-/* ===========================================
-   TRUE APP LAYOUT (HEADER BAR FIXED TOP)
+   MODERN MOBILE CARD LAYOUT
    =========================================== */
 
 /* Extra Small Devices (phones, 320px - 479px) */
 @media (max-width: 479px) {
   .main {
-    padding: 0;
+    padding: var(--space-md);
     height: 100vh;
     height: 100dvh;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     overflow: hidden;
-    background: #0f0f1a;
+    background: radial-gradient(circle at top center, rgba(124, 58, 237, 0.2), #0f0f1a 60%);
   }
 
   .container {
@@ -909,169 +906,185 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--space-md);
     border-radius: 0;
   }
 
-  /* 1. ULTRA-COMPACT HEADER BAR */
+  /* 1. HERO SECTION (Top ~40%) - Centered & Beautiful */
   .header {
-    height: 60px;
-    /* Fixed small height */
-    flex-direction: row;
+    flex: 0 0 auto;
+    /* Don't grow/shrink */
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 var(--space-md);
-    background: rgba(15, 15, 26, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    flex-shrink: 0;
-    border-radius: 0;
-    gap: 0;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-md) 0;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    gap: var(--space-sm);
+    animation: fadeInDown 0.8s ease-out;
   }
 
-  /* Left: Tiny Avatar + Name */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reset header structure to Column for mobile hero */
   .headerContentLeft {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    flex: 1;
-    overflow: hidden;
+    gap: var(--space-sm);
+    width: 100%;
   }
 
   .avatarWrapper {
-    width: 36px;
-    height: 36px;
-    border: none;
-    margin: 0;
+    width: 80px;
+    height: 80px;
+    margin-bottom: var(--space-xs);
   }
 
   .avatarWrapper .avatarGlow {
-    display: none;
-    /* Clean look */
-  }
-
-  .avatar {
-    border-width: 1px;
+    display: block;
+    /* Restore glow */
   }
 
   .profileInfo {
-    gap: 0;
+    align-items: center;
+    gap: 4px;
   }
 
   .name {
-    font-size: 1rem;
-    white-space: nowrap;
-    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
   }
 
-  /* Hide Title/Tagline completely on mobile to save space */
-  .title,
+  /* Restore Title/Tagline logic */
+  .title {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    margin-bottom: 4px;
+  }
+
   .tagline {
-    display: none;
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    max-width: 280px;
+    margin: 0 auto;
+    line-height: 1.4;
   }
 
-  /* Right: Icons Only */
+  /* Socials Row below profile info */
   .socialActions {
+    display: flex;
     flex-direction: row;
-    gap: 8px;
-    margin: 0;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    justify-content: center;
+    width: 100%;
   }
 
   .socialLinks {
-    gap: 4px;
-    margin: 0;
-  }
-
-  .socialLink {
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-  }
-
-  .socialLink svg {
-    width: 18px;
-    height: 18px;
-    color: var(--text-secondary);
-  }
-
-  /* Turn Contact Button into just an icon */
-  .contactBtn {
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    min-width: 0;
-    /* Override flex defaults */
-    border-radius: 50%;
-    font-size: 0;
-    /* Hide text */
-    background: transparent;
-    border: none;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary-solid);
+    gap: var(--space-sm);
+  }
+
+  .contactBtn {
+    /* Restore Button Look */
+    width: auto;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 500;
   }
 
   .contactBtn svg {
-    width: 20px;
-    height: 20px;
-    margin: 0;
+    margin-right: 6px;
   }
 
-
-  /* 2. CHAT AREA (Fills Space) */
+  /* 2. CHAT CARD (Bottom ~60%) - Glassmorphism Card */
   .chatContainer {
     flex: 1;
     display: flex;
     flex-direction: column;
-    border: none;
-    background: transparent;
-    border-radius: 0;
+    background: rgba(20, 20, 35, 0.6);
+    /* Glassy dark */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px 24px 0 0;
+    /* Rounded top corners only if touching bottom, or fully rounded if floating */
+    border-radius: 24px;
     overflow: hidden;
-    /* Important for inner scroll */
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+    margin-bottom: env(safe-area-inset-bottom);
+    /* Float above bottom slightly */
+    animation: slideUpCard 0.6s ease-out 0.2s backwards;
+  }
+
+  @keyframes slideUpCard {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .messagesArea {
     flex: 1;
-    height: auto;
-    /* Let flex handle it */
-    max-height: none;
     padding: var(--space-md);
-    background: radial-gradient(circle at center, rgba(124, 58, 237, 0.05), transparent 70%);
+    background: transparent;
+    overflow-y: auto;
   }
 
-  /* 3. HIGH CONTRAST SUGGESTIONS */
+  /* Suggestions Overlay */
   .quickReplies {
-    padding: var(--space-sm) var(--space-md);
-    background: transparent;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
+    padding: 8px var(--space-md);
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.2));
     gap: 8px;
-    overflow-x: auto;
   }
 
   .quickReplyBtn {
-    background: rgba(255, 255, 255, 0.1);
-    /* Lighter glass */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    /* Pure white text */
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 20px;
-    backdrop-filter: blur(4px);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    color: #e9d5ff;
+    /* Light purple text */
+    padding: 6px 12px;
+    font-size: 0.75rem;
   }
 
-  /* 4. PINNED INPUT */
   .inputArea {
     padding: 12px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    background: #13131f;
-    /* Solid background for input bar */
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
+  .chatInput {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding-left: 16px;
+  }
+
+  /* Hide footer */
   .footer {
     display: none;
   }
