@@ -454,12 +454,10 @@ export async function POST(request) {
         // -----------------------------------------------------------------------
         // STEP 4: INITIALIZE GEMINI MODEL WITH FALLBACK
         // -----------------------------------------------------------------------
-        // Try models in order of preference (Stable models first)
         const MODELS_TO_TRY = [
             'gemini-1.5-flash',          // Proven stable, fast, free tier friendly
             'gemini-1.5-pro',            // Higher intelligence fallback
             'gemini-2.0-flash-exp',      // Experimental (if available)
-            'gemini-pro',                // Legacy stable
         ];
 
         let model = null;
@@ -506,6 +504,12 @@ export async function POST(request) {
                 });
 
             } catch (error) {
+                // IMPORTANT: If this is an Authentication/API Key error, STOP TRYING.
+                // Trying other models won't fix a bad key.
+                if (error.message.includes('400') || error.message.includes('401') || error.message.includes('403') || error.message.toLowerCase().includes('key')) {
+                    throw error;
+                }
+
                 lastError = error;
                 logger.debug('Model failed, trying next', {
                     model: modelName,
@@ -522,18 +526,21 @@ export async function POST(request) {
         // -----------------------------------------------------------------------
         // ERROR HANDLING
         // -----------------------------------------------------------------------
-        // Log the full error for debugging (server-side only)
         logger.error('Chat API error', {
             error: error.message,
-            name: error.name,
-            // Include stack trace only in development
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            name: error.name
         });
 
-        // Return generic message to client (never expose internals)
-        // TEMPORARY DEBUGGING: Return real error to client
+        // Check for specific API Key errors to give helpful feedback
+        if (error.message.includes('400') || error.message.includes('403') || error.message.toLowerCase().includes('key')) {
+            return NextResponse.json({
+                response: "Configuration Error: The Gemini API Key appears to be invalid or expired. Please check your settings in the dashboard. 🔑"
+            });
+        }
+
+        // Return generic message for other errors
         return NextResponse.json({
-            response: `DEBUG ERROR: ${error.message} (Name: ${error.name})`
+            response: "Oops! I encountered a temporary issue connecting to my brain. Please try again in a moment! 🧠"
         });
     }
 }
