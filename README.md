@@ -62,32 +62,47 @@ Done! Your CV chatbot is live locally. 🎉
 
 ## 🌍 Deployment (Vercel)
 
-1. Push your code to GitHub.
-2. Import project into Vercel.
-3. Add the following **Environment Variables** in Vercel project settings:
-
-```env
-DASHBOARD_PASSWORD = <your-secure-password>
-JWT_SECRET         = <random-string-generate-with-openssl>
-GEMINI_API_KEY     = <your-gemini-key>
+### Step 1: Push to GitHub
+```bash
+git add .
+git commit -m "Initial deploy"
+git push origin main
 ```
-4. Deploy!
 
-*(Note: `GEMINI_API_KEY` can be set in Vercel OR managed via the dashboard Settings page after deployment)*
+### Step 2: Import to Vercel
+1. Go to [vercel.com](https://vercel.com) and sign in.
+2. Click **"Add New Project"** → Import your GitHub repo.
+3. Click **Deploy** (it will fail the first time - that's OK!).
 
-### ☁️ Enabling Live Edits (Required for Dashboard)
+### Step 3: Set Environment Variables (Required)
+Go to your project → **Settings** → **Environment Variables** and add:
 
-By default, Vercel deployments are **Read-Only**. To edit your profile on the live site:
+| Variable | Value | Required |
+|----------|-------|----------|
+| `DASHBOARD_PASSWORD` | Your secure admin password | ✅ Yes |
+| `JWT_SECRET` | Random string (run `openssl rand -base64 32`) | ✅ Yes |
+| `GEMINI_API_KEY` | Your [Gemini API Key](https://aistudio.google.com/app/apikey) | ✅ Yes |
 
-1.  Go to your project dashboard on Vercel.
-2.  Click the **Storage** tab.
-3.  Click **Create Database** → Select **KV** (Redis).
-4.  Click **Create** → **Connect** (Accept defaults).
-5.  Wait 1 minute, then **Redeploy** (Deployment tab → Redeploy).
+⚠️ **IMPORTANT**: Without these, the dashboard login will be disabled for security.
 
-Now your Dashboard will save changes instantly! 🚀
+### Step 4: Enable Live Editing (Required for Dashboard)
 
-*(If you skip this, you must edit files locally and push to GitHub to update content.)*
+By default, Vercel is **read-only**. To save profile changes on the live site, you need a database:
+
+1. In your Vercel project, click the **Storage** tab.
+2. Click **"Create New"** or browse **Marketplace Database Providers**.
+3. Select **"Upstash"** (Serverless Redis - it's free!).
+4. Click **"Add Integration"** → Select your project → **Continue** → **Connect**.
+5. Vercel will automatically add `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to your project.
+
+### Step 5: Redeploy
+1. Go to **Deployments** tab.
+2. Click the `...` menu on the latest deployment → **Redeploy**.
+3. Wait ~1 minute for the build to complete.
+
+**Done!** Your live dashboard now saves instantly. 🚀
+
+> 💡 **Tip**: If you skip Step 4, you can still use the site but must edit `data/profile.json` locally and push to GitHub to update content.
 
 ## 📁 Project Structure
 
