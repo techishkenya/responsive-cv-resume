@@ -75,6 +75,20 @@ GEMINI_API_KEY     = <your-gemini-key>
 
 *(Note: `GEMINI_API_KEY` can be set in Vercel OR managed via the dashboard Settings page after deployment)*
 
+### ☁️ Enabling Live Edits (Required for Dashboard)
+
+By default, Vercel deployments are **Read-Only**. To edit your profile on the live site:
+
+1.  Go to your project dashboard on Vercel.
+2.  Click the **Storage** tab.
+3.  Click **Create Database** → Select **KV** (Redis).
+4.  Click **Create** → **Connect** (Accept defaults).
+5.  Wait 1 minute, then **Redeploy** (Deployment tab → Redeploy).
+
+Now your Dashboard will save changes instantly! 🚀
+
+*(If you skip this, you must edit files locally and push to GitHub to update content.)*
+
 ## 📁 Project Structure
 
 ```
