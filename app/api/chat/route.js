@@ -84,12 +84,10 @@ async function getGeminiClient() {
         return cachedGenAI;
     }
 
-    // Create new client with current key (use v1 API)
+    // Trim API key to remove accidental whitespace/newlines
+    const genAI = new GoogleGenerativeAI(apiKey.trim());
     cachedApiKey = apiKey;
-    cachedGenAI = new GoogleGenerativeAI(apiKey);
-
-    // Debug logging removed for security
-    // logger.debug('Gemini client initialized/updated');
+    cachedGenAI = genAI;
     return cachedGenAI;
 }
 
@@ -551,7 +549,7 @@ export async function POST(request) {
 
         // Return generic message for other errors
         return NextResponse.json({
-            response: "Oops! I encountered a temporary issue. Please try again in a moment! 🧠"
+            response: `FINAL_PAYLOAD_ERR: ${error.message} (Name: ${error.name})`
         });
     }
 }
