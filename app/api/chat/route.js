@@ -531,8 +531,9 @@ export async function POST(request) {
         });
 
         // Return generic message to client (never expose internals)
+        // TEMPORARY DEBUGGING: Return real error to client
         return NextResponse.json({
-            response: "Oops! I had a little hiccup. Could you try asking that again? 😅"
+            response: `DEBUG ERROR: ${error.message} (Name: ${error.name})`
         });
     }
 }
