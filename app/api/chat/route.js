@@ -424,36 +424,6 @@ export async function POST(request) {
         // STEP 2: PARSE AND VALIDATE REQUEST
         // -----------------------------------------------------------------------
         const body = await request.json();
-
-        // --- DIAGNOSTIC COMMAND ---
-        if (body.message === '/debug') {
-            const keyStatus = genAI ? "Configured (Hidden)" : "Missing";
-            let report = `**DIAGNOSTICS**\n- API Key: ${keyStatus}\n- Time: ${new Date().toISOString()}\n\n**Model Scan:**\n`;
-
-            const MODELS_TO_TEST = [
-                'gemini-1.5-flash',
-                'gemini-1.5-flash-001',
-                'gemini-1.0-pro',
-                'gemini-pro'
-            ];
-
-            for (const mName of MODELS_TO_TEST) {
-                try {
-                    const model = genAI.getGenerativeModel({ model: mName });
-                    await model.generateContent("Test");
-                    report += `✅ ${mName}: WORKING\n`;
-                } catch (e) {
-                    // Extract short error code
-                    const code = e.message.match(/\[(\d+) /)?.[1] || 'Err';
-                    report += `❌ ${mName}: ${code} (${e.message.substring(0, 50)}...)\n`;
-                }
-            }
-
-            return NextResponse.json({
-                response: report
-            });
-        }
-
         const message = validateChatMessage(body.message);
 
         // Reject invalid messages
