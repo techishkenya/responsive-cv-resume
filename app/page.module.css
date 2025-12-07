@@ -167,10 +167,19 @@
 }
 
 /* Profile Info */
+.headerContentLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
 .profileInfo {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  width: 100%;
 }
 
 .name {
@@ -875,125 +884,189 @@
    Responsive Design - All Screen Sizes
    =========================================== */
 
+/* ===========================================
+   PREMIUM MOBILE LAYOUT (App-Like Feel)
+   =========================================== */
+
 /* Extra Small Devices (phones, 320px - 479px) */
 @media (max-width: 479px) {
   .main {
-    padding: var(--space-sm);
-    /* Use safe area to avoid notch, but keep some padding */
-    padding-top: max(var(--space-md), env(safe-area-inset-top));
-    align-items: center;
-    /* Center correctly unless too tall */
-    justify-content: center;
-  }
-
-  /* Force start alignment if content is taller than screen */
-  @media (max-height: 800px) {
-    .main {
-      align-items: flex-start;
-    }
+    padding: 0;
+    /* Remove outer padding for edge-to-edge feel */
+    height: 100vh;
+    height: 100dvh;
+    /* Modern dynamic viewport height */
+    overflow: hidden;
+    align-items: stretch;
   }
 
   .container {
-    gap: var(--space-sm);
-    /* Reduce gap between header and chat */
+    height: 100%;
+    max-height: none;
     width: 100%;
+    max-width: none;
+    gap: 0;
+    /* No gap between sections */
+    border-radius: 0;
   }
 
-  /* COMPACT HEADER transformation */
+  /* 1. COMPACT HEADER (Top Bar) */
   .header {
     flex-direction: row;
-    /* Side by side */
     align-items: center;
+    justify-content: space-between;
     text-align: left;
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(15, 15, 26, 0.85);
+    /* Darker, solid-ish header */
+    backdrop-filter: blur(20px);
+    flex-shrink: 0;
+    /* Don't shrink */
     gap: var(--space-md);
+    z-index: 10;
+  }
+
+  /* Avatar & Info Grouping */
+  .headerContentLeft {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex: 1;
   }
 
   .avatarWrapper {
-    width: 50px;
-    /* Smaller avatar */
-    height: 50px;
-    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+  }
+
+  .onlineIndicator {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
   }
 
   .profileInfo {
-    flex: 1;
-    /* Take remaining width */
     align-items: flex-start;
+    gap: 2px;
   }
 
   .name {
     font-size: 1.1rem;
-    /* Smaller name */
-    line-height: 1.2;
+    margin: 0;
   }
 
   .title {
-    font-size: 0.8rem;
-    line-height: 1.2;
+    font-size: 0.75rem;
+    opacity: 0.8;
   }
 
-  /* Hide tagline/socials on super small phones to save space if needed */
   .tagline {
     display: none;
   }
 
+  /* 2. COMPACT ACTIONS (Right Side) */
   .socialActions {
-    display: none;
-    /* Hide social buttons in header on mobile to save space - they are usually in footer or menu */
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    margin: 0;
+    gap: var(--space-xs);
   }
 
-  /* Expand Chat Area */
+  .socialLinks {
+    display: flex;
+    margin: 0;
+    gap: var(--space-xs);
+  }
+
+  .socialLink {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Hide explicit 'Contact Me' button text, turn into icon */
+  .contactBtn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 0;
+    /* Hide text */
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.3);
+    color: var(--primary-solid);
+  }
+
+  .contactBtn svg {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* 3. EXPANDED CHAT AREA (Fill Screen) */
+  .chatContainer {
+    flex: 1;
+    /* Fills ALL remaining space */
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    backdrop-filter: none;
+  }
+
   .messagesArea {
-    max-height: 60vh;
-    /* Use percentage of screen height */
-    min-height: 300px;
+    flex: 1;
+    /* Takes up all space above input */
+    max-height: none;
+    /* Remove limit */
     padding: var(--space-md);
-  }
-
-  .messageContent {
-    max-width: 90%;
-    padding: var(--space-xs) var(--space-sm);
-    font-size: 0.85rem;
-  }
-
-  .messageAvatar {
-    width: 28px;
-    height: 28px;
+    padding-bottom: 0;
+    /* Space for input */
   }
 
   .quickReplies {
-    padding: 0 var(--space-sm) var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    /* Horizontal scroll */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     gap: var(--space-xs);
   }
 
   .quickReplyBtn {
-    font-size: 0.75rem;
-    padding: 6px 10px;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    background: rgba(124, 58, 237, 0.05);
+    border-color: rgba(124, 58, 237, 0.2);
   }
 
+  /* 4. PINNED INPUT AREA (Bottom) */
   .inputArea {
-    padding: var(--space-sm);
+    padding: var(--space-md);
+    /* Safe area handled by browser usually, but good to have padding */
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
+    background: rgba(15, 15, 26, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .chatInput {
-    padding: var(--space-xs) var(--space-sm);
-    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .sendBtn {
-    width: 38px;
-    height: 38px;
-  }
-
-  .sendBtn svg {
-    width: 16px;
-    height: 16px;
-  }
-
+  /* Hide footer on mobile or make tiny */
   .footer {
-    padding: var(--space-sm);
-    font-size: 0.7rem;
+    display: none;
   }
 }
 

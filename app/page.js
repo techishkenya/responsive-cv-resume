@@ -268,24 +268,27 @@ export default function Home() {
 
       <div className={styles.container}>
         {/* Header */}
+        {/* Header */}
         <header className={styles.header}>
-          <div className={styles.avatarWrapper}>
-            <div className={styles.avatarGlow} />
-            <img
-              src={profile?.avatar || '/avatar.png'}
-              alt={profile?.name || 'Profile'}
-              className={styles.avatar}
-              onError={(e) => {
-                e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profile?.name || 'User')}&background=7c3aed&color=fff&size=128`;
-              }}
-            />
-            <span className={styles.onlineIndicator} />
-          </div>
+          <div className={styles.headerContentLeft}>
+            <div className={styles.avatarWrapper}>
+              <div className={styles.avatarGlow} />
+              <img
+                src={profile?.avatar || '/avatar.png'}
+                alt={profile?.name || 'Profile'}
+                className={styles.avatar}
+                onError={(e) => {
+                  e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profile?.name || 'User')}&background=7c3aed&color=fff&size=128`;
+                }}
+              />
+              <span className={styles.onlineIndicator} />
+            </div>
 
-          <div className={styles.profileInfo}>
-            <h1 className={styles.name}>{profile?.name || 'Loading...'}</h1>
-            <p className={styles.title}>{profile?.title || ''}</p>
-            {profile?.tagline && <p className={styles.tagline}>{profile.tagline}</p>}
+            <div className={styles.profileInfo}>
+              <h1 className={styles.name}>{profile?.name || 'Loading...'}</h1>
+              <p className={styles.title}>{profile?.title || ''}</p>
+              {profile?.tagline && <p className={styles.tagline}>{profile.tagline}</p>}
+            </div>
           </div>
 
           {/* Social Links & Contact */}
@@ -305,7 +308,7 @@ export default function Home() {
             )}
 
             {profile?.email && (
-              <a href={`mailto:${profile.email}`} className={styles.contactBtn}>
+              <a href={`mailto:${profile.email}`} className={styles.contactBtn} title="Contact Me">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
