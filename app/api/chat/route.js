@@ -49,8 +49,16 @@ function formatResponse(match, profile) {
 
     if (section === 'skills') {
         if (Array.isArray(data)) {
+            // Group flat skills by category
+            const groups = data.reduce((acc, skill) => {
+                const cat = skill.category || 'Other';
+                if (!acc[cat]) acc[cat] = [];
+                acc[cat].push(skill.name);
+                return acc;
+            }, {});
+
             return `### 🛠️ Technical Skills\n\n` +
-                data.map(cat => `**${cat.category}**: ${cat.items.join(', ')}`).join('\n\n');
+                Object.entries(groups).map(([cat, items]) => `**${cat}**: ${items.join(', ')}`).join('\n\n');
         }
         return `### 🛠️ Skills\n\n${JSON.stringify(data)}`;
     }
