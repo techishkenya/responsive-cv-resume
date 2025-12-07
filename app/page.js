@@ -268,7 +268,6 @@ export default function Home() {
 
       <div className={styles.container}>
         {/* Header */}
-        {/* Header */}
         <header className={styles.header}>
           <div className={styles.headerContentLeft}>
             <div className={styles.avatarWrapper}>
