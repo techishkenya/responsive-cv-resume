@@ -888,183 +888,190 @@
    PREMIUM MOBILE LAYOUT (App-Like Feel)
    =========================================== */
 
+/* ===========================================
+   TRUE APP LAYOUT (HEADER BAR FIXED TOP)
+   =========================================== */
+
 /* Extra Small Devices (phones, 320px - 479px) */
 @media (max-width: 479px) {
   .main {
     padding: 0;
-    /* Remove outer padding for edge-to-edge feel */
     height: 100vh;
     height: 100dvh;
-    /* Modern dynamic viewport height */
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    align-items: stretch;
+    background: #0f0f1a;
   }
 
   .container {
     height: 100%;
-    max-height: none;
     width: 100%;
-    max-width: none;
+    display: flex;
+    flex-direction: column;
     gap: 0;
-    /* No gap between sections */
     border-radius: 0;
   }
 
-  /* 1. COMPACT HEADER (Top Bar) */
+  /* 1. ULTRA-COMPACT HEADER BAR */
   .header {
+    height: 60px;
+    /* Fixed small height */
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    text-align: left;
-    padding: var(--space-md) var(--space-lg);
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(15, 15, 26, 0.85);
-    /* Darker, solid-ish header */
-    backdrop-filter: blur(20px);
+    padding: 0 var(--space-md);
+    background: rgba(15, 15, 26, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
-    /* Don't shrink */
-    gap: var(--space-md);
-    z-index: 10;
+    border-radius: 0;
+    gap: 0;
   }
 
-  /* Avatar & Info Grouping */
+  /* Left: Tiny Avatar + Name */
   .headerContentLeft {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
+    gap: 12px;
     flex: 1;
+    overflow: hidden;
   }
 
   .avatarWrapper {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
+    border: none;
     margin: 0;
   }
 
-  .onlineIndicator {
-    width: 12px;
-    height: 12px;
-    border-width: 2px;
+  .avatarWrapper .avatarGlow {
+    display: none;
+    /* Clean look */
+  }
+
+  .avatar {
+    border-width: 1px;
   }
 
   .profileInfo {
-    align-items: flex-start;
-    gap: 2px;
+    gap: 0;
   }
 
   .name {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    white-space: nowrap;
     margin: 0;
   }
 
-  .title {
-    font-size: 0.75rem;
-    opacity: 0.8;
-  }
-
+  /* Hide Title/Tagline completely on mobile to save space */
+  .title,
   .tagline {
     display: none;
   }
 
-  /* 2. COMPACT ACTIONS (Right Side) */
+  /* Right: Icons Only */
   .socialActions {
-    display: flex;
     flex-direction: row;
-    width: auto;
+    gap: 8px;
     margin: 0;
-    gap: var(--space-xs);
   }
 
   .socialLinks {
-    display: flex;
+    gap: 4px;
     margin: 0;
-    gap: var(--space-xs);
   }
 
   .socialLink {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
   }
 
-  /* Hide explicit 'Contact Me' button text, turn into icon */
+  .socialLink svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-secondary);
+  }
+
+  /* Turn Contact Button into just an icon */
   .contactBtn {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     padding: 0;
+    min-width: 0;
+    /* Override flex defaults */
     border-radius: 50%;
     font-size: 0;
     /* Hide text */
-    background: rgba(124, 58, 237, 0.1);
-    border-color: rgba(124, 58, 237, 0.3);
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--primary-solid);
   }
 
   .contactBtn svg {
+    width: 20px;
+    height: 20px;
     margin: 0;
-    width: 18px;
-    height: 18px;
   }
 
-  /* 3. EXPANDED CHAT AREA (Fill Screen) */
+
+  /* 2. CHAT AREA (Fills Space) */
   .chatContainer {
     flex: 1;
-    /* Fills ALL remaining space */
-    border-radius: 0;
-    border: none;
-    background: transparent;
     display: flex;
     flex-direction: column;
+    border: none;
+    background: transparent;
+    border-radius: 0;
     overflow: hidden;
-    backdrop-filter: none;
+    /* Important for inner scroll */
   }
 
   .messagesArea {
     flex: 1;
-    /* Takes up all space above input */
+    height: auto;
+    /* Let flex handle it */
     max-height: none;
-    /* Remove limit */
     padding: var(--space-md);
-    padding-bottom: 0;
-    /* Space for input */
+    background: radial-gradient(circle at center, rgba(124, 58, 237, 0.05), transparent 70%);
   }
 
+  /* 3. HIGH CONTRAST SUGGESTIONS */
   .quickReplies {
     padding: var(--space-sm) var(--space-md);
+    background: transparent;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    gap: 8px;
     overflow-x: auto;
-    flex-wrap: nowrap;
-    /* Horizontal scroll */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: var(--space-xs);
   }
 
   .quickReplyBtn {
-    white-space: nowrap;
-    font-size: 0.8rem;
-    padding: 6px 14px;
-    background: rgba(124, 58, 237, 0.05);
-    border-color: rgba(124, 58, 237, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    /* Lighter glass */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    /* Pure white text */
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
-  /* 4. PINNED INPUT AREA (Bottom) */
+  /* 4. PINNED INPUT */
   .inputArea {
-    padding: var(--space-md);
-    /* Safe area handled by browser usually, but good to have padding */
-    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom));
-    background: rgba(15, 15, 26, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    background: #13131f;
+    /* Solid background for input bar */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .chatInput {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  /* Hide footer on mobile or make tiny */
   .footer {
     display: none;
   }
