@@ -545,7 +545,7 @@ export async function POST(request) {
 
         // Return generic message for other errors
         return NextResponse.json({
-            response: "Oops! I encountered a temporary issue. Please try again in a moment! 🧠"
+            response: `FINAL_DEBUG: ${error.message}`
         });
     }
 }
