@@ -452,9 +452,12 @@ export async function POST(request) {
         // -----------------------------------------------------------------------
         // STEP 4: INITIALIZE GEMINI MODEL WITH FALLBACK
         // -----------------------------------------------------------------------        // Try models in order of preference
-        // We stick to the standard 'gemini-1.5-flash' alias for maximum stability and free tier support (15 RPM).
+        // We expand the list to catch specific versioning issues
         const MODELS_TO_TRY = [
             'gemini-1.5-flash',
+            'gemini-1.5-flash-latest',
+            'gemini-1.5-flash-001',
+            'gemini-1.0-pro', // Fallback for older projects
         ];
 
         let model = null;
@@ -549,7 +552,7 @@ export async function POST(request) {
 
         // Return generic message for other errors
         return NextResponse.json({
-            response: `FINAL_PAYLOAD_ERR: ${error.message} (Name: ${error.name})`
+            response: "Oops! I encountered a temporary issue. Please try again in a moment! 🧠"
         });
     }
 }
