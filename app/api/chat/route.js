@@ -396,7 +396,9 @@ export async function POST(request) {
     // -------------------------------------------------------------------------
     // Get client IP (simple version - for production, check X-Forwarded-For)
     // Note: In local dev, this might be '::1' or '127.0.0.1'
-    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    // Get client IP (support proxy headers)
+    const forwarded = request.headers.get('x-forwarded-for');
+    const ip = forwarded ? forwarded.split(',')[0].trim() : 'unknown';
     const rateLimit = checkRateLimit(ip);
 
     if (!rateLimit.allowed) {

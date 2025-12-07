@@ -113,9 +113,11 @@ GEMINI_API_KEY     = <your-gemini-key>
 
 | Service | Free Tier |
 |---------|-----------|
-| Google Gemini | 60 requests/minute |
+| Google Gemini | 15 requests/minute (Global) |
 | Vercel | 100GB bandwidth/month |
 | Total Cost | **$0** |
+
+⚠️ **Note on Scalability:** The free tier supports ~100-200 daily active chatters. If you expect high traffic (e.g., 3000+ visitors launching the site simultaneously), you should enable **Pay-As-You-Go** billing in Google Cloud Console to increase the rate limit to 1000+ RPM. The cost is extremely low (~$0.35/million tokens).
 
 ## 🛡️ Security Best Practices
 
@@ -128,6 +130,12 @@ GEMINI_API_KEY     = <your-gemini-key>
 
 MIT - Use freely for your own CV!
 
+## 🫡 Accreditation
+
+*   **BUILT BY:** [@DicksonOtieno](https://github.com/techishkenya/)
+*   **POWERED BY:** ANTIGRAVITY
+
 ---
 
-Built with ❤️ using Next.js and Google Gemini
+Built with ❤️ by @DicksonOtieno using Antigravity
+
