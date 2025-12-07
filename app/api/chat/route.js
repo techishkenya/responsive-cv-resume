@@ -453,11 +453,11 @@ export async function POST(request) {
 
         // -----------------------------------------------------------------------
         // STEP 4: INITIALIZE GEMINI MODEL WITH FALLBACK
-        // -----------------------------------------------------------------------
+        // -----------------------------------------------------------------------        // Try models in order of preference (Stable models first)
+        // We ONLY use 1.5-flash because it has the best free tier (15 RPM).
+        // Using other models as fallback causes Quota errors (429).
         const MODELS_TO_TRY = [
-            'gemini-1.5-flash',          // Proven stable, fast, free tier friendly
-            'gemini-1.5-pro',            // Higher intelligence fallback
-            'gemini-2.0-flash-exp',      // Experimental (if available)
+            'gemini-1.5-flash',
         ];
 
         let model = null;
@@ -538,10 +538,15 @@ export async function POST(request) {
             });
         }
 
+        if (error.message.includes('429')) {
+            return NextResponse.json({
+                response: "I'm receiving too many messages! Please give me a minute to rest. (Rate Limit Exceeded) ⏳"
+            });
+        }
+
         // Return generic message for other errors
-        // TEMPORARY DEBUGGING ENABLED
         return NextResponse.json({
-            response: `DEBUG: ${error.message} (Name: ${error.name})`
+            response: "Oops! I encountered a temporary issue. Please try again in a moment! 🧠"
         });
     }
 }
