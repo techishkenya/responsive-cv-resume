@@ -424,6 +424,27 @@ export async function POST(request) {
         // STEP 2: PARSE AND VALIDATE REQUEST
         // -----------------------------------------------------------------------
         const body = await request.json();
+
+        // --- DIAGNOSTIC COMMAND ---
+        if (body.message === '/debug') {
+            const keyStatus = genAI ? "Configured (Hidden)" : "Missing";
+            let modelStatus = "Unknown";
+            try {
+                // Try to list models to verify permissions
+                // Note: listModels() might not be available on the client instance directly depending on SDK version
+                // So we just try a lightweight call
+                const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+                const result = await model.generateContent("Test");
+                modelStatus = "Active & Working";
+            } catch (e) {
+                modelStatus = `Error: ${e.message}`;
+            }
+
+            return NextResponse.json({
+                response: `**DIAGNOSTICS**\n- API Key: ${keyStatus}\n- Test Call: ${modelStatus}\n- Time: ${new Date().toISOString()}`
+            });
+        }
+
         const message = validateChatMessage(body.message);
 
         // Reject invalid messages
