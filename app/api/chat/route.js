@@ -470,7 +470,13 @@ export async function POST(request) {
             try {
                 model = genAI.getGenerativeModel({
                     model: modelName,
-                    systemInstruction: systemPrompt
+                    systemInstruction: systemPrompt,
+                    safetySettings: [
+                        { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+                        { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+                        { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+                        { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+                    ]
                 });
 
                 // Test the model with actual request
@@ -545,7 +551,7 @@ export async function POST(request) {
 
         // Return generic message for other errors
         return NextResponse.json({
-            response: `FINAL_DEBUG: ${error.message}`
+            response: "Oops! I encountered a temporary issue. Please try again in a moment! 🧠"
         });
     }
 }
