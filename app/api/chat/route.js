@@ -453,11 +453,13 @@ export async function POST(request) {
 
         // -----------------------------------------------------------------------
         // STEP 4: INITIALIZE GEMINI MODEL WITH FALLBACK
-        // -----------------------------------------------------------------------        // Try models in order of preference (Stable models first)
-        // We ONLY use 1.5-flash because it has the best free tier (15 RPM).
-        // Using other models as fallback causes Quota errors (429).
+        // -----------------------------------------------------------------------        // Try models in order of preference
+        // We expand the list to catch specific versioning issues
         const MODELS_TO_TRY = [
             'gemini-1.5-flash',
+            'gemini-1.5-flash-001',      // Specific version (sometimes required)
+            'gemini-1.5-flash-latest',   // Latest alias
+            'gemini-1.0-pro',            // Older stable fallback
         ];
 
         let model = null;
