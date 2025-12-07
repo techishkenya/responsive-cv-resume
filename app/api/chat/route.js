@@ -539,8 +539,9 @@ export async function POST(request) {
         }
 
         // Return generic message for other errors
+        // TEMPORARY DEBUGGING ENABLED
         return NextResponse.json({
-            response: "Oops! I encountered a temporary issue connecting to my brain. Please try again in a moment! 🧠"
+            response: `DEBUG: ${error.message} (Name: ${error.name})`
         });
     }
 }
