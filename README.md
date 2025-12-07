@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RESPONSIVE CV/RESUME
 
-## Getting Started
+A modern, AI-powered interactive resume/CV website where visitors can chat with an AI that knows everything about you.
 
-First, run the development server:
+## ✨ Features
+
+- **AI Chatbot** - Visitors ask questions about your background, skills, and experience
+- **Rich Content Display** - Projects, Education, and Articles are displayed in beautiful **interactive carousels** (sliders)
+- **Smart Link Previews** - External links automatically expand into rich preview cards
+- **Beautiful UI** - Dark theme with glassmorphism, animations, and responsive design
+- **Admin Dashboard** - Edit all your information without touching code
+- **Secure by Design** - API keys encrypted, personal data protected, no leaks possible
+- **Free to Run** - Uses free tiers of Gemini API and Vercel
+
+## 🔐 Security
+
+This project is **completely leak-proof**:
+
+| Data Type | Protection |
+|-----------|------------|
+| API Keys | Encrypted with AES-256, stored server-side only |
+| Passwords | Never in code, set via dashboard or environment |
+| Personal Data | Gitignored, never committed to repository |
+| System Prompts | Server-side only, invisible to visitors |
+| Rate Limits | Built-in protection against abuse (100 req/day/IP) |
+
+**Dashboard is hidden** - No visible links on public site. Only you know it exists at `/dashboard`.
+
+## 🚀 Quick Start in 5 Minutes
+
+### 1. Clone & Install
+
+```bash
+git clone <your-repo-url>
+cd dickson-cv
+npm install
+```
+
+### 2. Setup Data Files
+
+```bash
+# Create local data files from templates
+cp data/profile.example.json data/profile.json
+cp data/botConfig.example.json data/botConfig.json
+```
+
+### 3. Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. Configure Your Bot
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Visit `http://localhost:3000/dashboard` in your browser.
+2. Login with default password: `admin123`
+3. Go to **Settings** → Paste your [Gemini API Key](https://aistudio.google.com/app/apikey).
+4. Go to **Profile** → Fill in your bio, skills, and experience.
+5. Go to **Bot Settings** → Customize the AI's greeting and personality.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Done! Your CV chatbot is live locally. 🎉
 
-## Learn More
+## 🌍 Deployment (Vercel)
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to GitHub.
+2. Import project into Vercel.
+3. Add the following **Environment Variables** in Vercel project settings:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+DASHBOARD_PASSWORD = <your-secure-password>
+JWT_SECRET         = <random-string-generate-with-openssl>
+GEMINI_API_KEY     = <your-gemini-key>
+```
+4. Deploy!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+*(Note: `GEMINI_API_KEY` can be set in Vercel OR managed via the dashboard Settings page after deployment)*
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── app/
+│   ├── page.js              # 🌐 Public chatbot interface
+│   ├── components/          # 🧩 Reusable UI components (Carousel, etc.)
+│   ├── login/               # 🔐 Dashboard login
+│   ├── dashboard/           # 📊 Admin pages
+│   └── api/                 # 🔌 All API routes
+├── lib/
+│   ├── utils.js             # 🔧 Shared utilities
+│   ├── logger.js            # 📋 Error logging
+│   └── secrets.js           # 🔐 API key encryption
+├── data/
+│   ├── profile.json         # 👤 Your CV data (gitignored)
+│   ├── botConfig.json       # 🤖 Bot settings (gitignored)
+└── public/                  # Static assets
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎛️ Dashboard Pages
+
+| Page | Purpose |
+|------|---------|
+| Overview | Stats and quick actions |
+| Profile | Name, bio, avatar, social links |
+| Experience | Work history with achievements |
+| Education | Degrees and certifications |
+| Projects | Portfolio items (Displayed in Carousel) |
+| Skills | Technical skills with proficiency |
+| Bot Settings | AI personality and quick replies |
+| Integrations | Spotify, Twitter, Blog connections |
+| Settings | API key management |
+| Error Logs | Debug issues |
+
+## 🆓 Free Tier Limits
+
+| Service | Free Tier |
+|---------|-----------|
+| Google Gemini | 60 requests/minute |
+| Vercel | 100GB bandwidth/month |
+| Total Cost | **$0** |
+
+## 🛡️ Security Best Practices
+
+1. **Change the default password** immediately in `.env` or Vercel vars.
+2. **Generate a proper JWT_SECRET** for production (e.g. `openssl rand -base64 32`).
+3. **Never share** your dashboard URL.
+4. **Check Error Logs** periodically for issues.
+
+## 📝 License
+
+MIT - Use freely for your own CV!
+
+---
+
+Built with ❤️ using Next.js and Google Gemini

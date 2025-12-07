@@ -1,6 +1,15 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==============================================================================
+# GITIGNORE - Security-focused configuration
+# ==============================================================================
+# This file specifies which files should NEVER be committed to git.
+# This is CRITICAL for security - it prevents leaking secrets and personal data.
+# ==============================================================================
 
-# dependencies
+# ------------------------------------------------------------------------------
+# DEPENDENCIES
+# ------------------------------------------------------------------------------
+# Node modules contain thousands of files and should never be committed.
+# They're installed via 'npm install' from package.json.
 /node_modules
 /.pnp
 .pnp.*
@@ -10,32 +19,109 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# ------------------------------------------------------------------------------
+# BUILD OUTPUT
+# ------------------------------------------------------------------------------
+# These are generated files that can be recreated from source.
 /.next/
 /out/
-
-# production
 /build
 
-# misc
-.DS_Store
-*.pem
+# ------------------------------------------------------------------------------
+# TESTING
+# ------------------------------------------------------------------------------
+/coverage
 
-# debug
+# ------------------------------------------------------------------------------
+# ENVIRONMENT FILES (CRITICAL SECURITY)
+# ------------------------------------------------------------------------------
+# Environment files contain sensitive data like API keys and passwords.
+# NEVER commit these files - they would expose your secrets!
+#
+# .env          - Production environment
+# .env.local    - Local development (highest priority)
+# .env.*.local  - Environment-specific local overrides
+#
+# The ONLY exception is .env.example which contains placeholder values
+# to show other developers what variables they need to set.
+.env
+.env.local
+.env.development
+.env.production
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Allow the example file (it has no real secrets)
+!.env.example
+
+# ------------------------------------------------------------------------------
+# PERSONAL DATA (CRITICAL SECURITY)
+# ------------------------------------------------------------------------------
+# The /data directory contains personal profile information.
+# This should NEVER be committed as it would leak personal data.
+#
+# Instead, we provide:
+# - data/profile.example.json - Template with dummy data
+# - data/botConfig.example.json - Template with dummy settings
+#
+# Users should copy these to profile.json/botConfig.json and fill in their info.
+/data/*.json
+!data/*.example.json
+
+# ------------------------------------------------------------------------------
+# OPERATING SYSTEM FILES
+# ------------------------------------------------------------------------------
+# These are hidden files created by the OS that serve no purpose in the repo.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ------------------------------------------------------------------------------
+# IDE AND EDITOR FILES
+# ------------------------------------------------------------------------------
+# Each developer has their own IDE settings - don't force yours on others.
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------------------------------------------------------------
+# SECURITY FILES
+# ------------------------------------------------------------------------------
+# Private keys and certificates should NEVER be in the repo.
+*.pem
+*.key
+*.crt
+*.p12
+
+# ------------------------------------------------------------------------------
+# DEBUG AND LOG FILES
+# ------------------------------------------------------------------------------
+# Log files may contain sensitive request data or stack traces.
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
+# ------------------------------------------------------------------------------
+# DEPLOYMENT
+# ------------------------------------------------------------------------------
 .vercel
+.netlify
 
-# typescript
+# ------------------------------------------------------------------------------
+# TYPESCRIPT (if used in future)
+# ------------------------------------------------------------------------------
 *.tsbuildinfo
 next-env.d.ts
+
+# ------------------------------------------------------------------------------
+# MISCELLANEOUS
+# ------------------------------------------------------------------------------
+# Temporary files that shouldn't be tracked
+*.tmp
+*.temp

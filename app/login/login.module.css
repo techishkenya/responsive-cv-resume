@@ -1,0 +1,272 @@
+/* ===========================================
+   Login Page Styles
+   =========================================== */
+
+.main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Orbs */
+.bgOrb1 {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    top: -200px;
+    right: -200px;
+    z-index: -1;
+}
+
+.bgOrb2 {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, #06b6d4, #10b981);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.2;
+    bottom: -150px;
+    left: -150px;
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    width: 100%;
+    max-width: 400px;
+}
+
+.card {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    backdrop-filter: blur(20px);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.error {
+    padding: var(--space-md);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-md);
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.input {
+    padding: var(--space-md);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.input:focus {
+    border-color: var(--primary-solid);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.input::placeholder {
+    color: var(--text-muted);
+}
+
+.input:disabled {
+    opacity: 0.6;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-medium);
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.footer {
+    margin-top: var(--space-xl);
+    text-align: center;
+}
+
+.backLink {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+    color: var(--primary-solid);
+}
+
+.hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.hint code {
+    background: var(--bg-glass);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+}
+
+/* ===========================================
+   Responsive Design - Login Page
+   =========================================== */
+
+/* Small phones */
+@media (max-width: 479px) {
+    .main {
+        padding: var(--space-md);
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .card {
+        padding: var(--space-lg);
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .subtitle {
+        font-size: 0.85rem;
+    }
+
+    .input {
+        font-size: 16px;
+        /* Prevents iOS zoom */
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .button {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+
+    .bgOrb1 {
+        width: 300px;
+        height: 300px;
+        top: -150px;
+        right: -150px;
+    }
+
+    .bgOrb2 {
+        width: 250px;
+        height: 250px;
+        bottom: -100px;
+        left: -100px;
+    }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+
+    .input,
+    .button {
+        min-height: 48px;
+    }
+}

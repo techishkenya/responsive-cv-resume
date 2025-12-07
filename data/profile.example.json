@@ -1,0 +1,77 @@
+{
+    "name": "John Doe",
+    "title": "Software Engineer",
+    "tagline": "Building the future with code",
+    "bio": "I am a passionate developer with expertise in React, Node.js, and Cloud Architecture.",
+    "location": "San Francisco, CA",
+    "email": "hello@example.com",
+    "avatar": "/avatar.png",
+    "social": {
+        "github": "https://github.com",
+        "linkedin": "https://linkedin.com",
+        "twitter": "https://twitter.com"
+    },
+    "skills": [
+        {
+            "name": "JavaScript",
+            "level": 90,
+            "category": "Languages"
+        },
+        {
+            "name": "React",
+            "level": 85,
+            "category": "Frontend"
+        },
+        {
+            "name": "Node.js",
+            "level": 80,
+            "category": "Backend"
+        }
+    ],
+    "experience": [
+        {
+            "role": "Senior Developer",
+            "company": "Tech Corp",
+            "period": "2020 - Present",
+            "description": "Leading the frontend team...",
+            "location": "Remote",
+            "highlights": [
+                "Improved performance by 50%",
+                "Mentored junior devs"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "B.S. Computer Science",
+            "institution": "University of Tech",
+            "period": "2016 - 2020",
+            "description": "Focus on AI and Systems"
+        }
+    ],
+    "projects": [
+        {
+            "name": "Project Alpha",
+            "description": "A cool web app built with Next.js",
+            "link": "https://example.com",
+            "technologies": [
+                "React",
+                "Firebase"
+            ]
+        }
+    ],
+    "certifications": [],
+    "languages": [
+        {
+            "name": "English",
+            "level": "Native"
+        }
+    ],
+    "interests": [
+        "Coding",
+        "Hiking"
+    ],
+    "funFacts": [
+        "I love coffee"
+    ]
+}

@@ -1,0 +1,240 @@
+/* ===========================================
+   Theme Switcher Component Styles
+   =========================================== */
+
+/* Settings Button - Fixed position bottom right */
+.settingsBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.settingsBtn:hover {
+    transform: scale(1.1) rotate(90deg);
+    border-color: var(--primary-solid);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 200;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Panel */
+.panel {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    max-width: calc(100vw - 40px);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(20px);
+    z-index: 300;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.panelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panelHeader h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.closeBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+/* Theme Grid */
+.themeGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    padding: var(--space-md);
+}
+
+.themeOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background: var(--bg-glass);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.themeOption:hover {
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+.themeOption.active {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: var(--primary-solid);
+}
+
+.themeIcon {
+    font-size: 1.5rem;
+}
+
+.themeName {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.themeDesc {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Matrix Rain */
+.matrixRain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.matrixChar {
+    position: absolute;
+    top: -50px;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    text-shadow: 0 0 10px #00ff00;
+    animation: matrixFall linear infinite;
+}
+
+@keyframes matrixFall {
+    0% {
+        transform: translateY(-50px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 479px) {
+    .settingsBtn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .panel {
+        bottom: 70px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+    }
+
+    .themeGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .themeOption {
+        padding: var(--space-sm);
+    }
+
+    .themeName {
+        font-size: 0.75rem;
+    }
+
+    .themeDesc {
+        display: none;
+    }
+}
